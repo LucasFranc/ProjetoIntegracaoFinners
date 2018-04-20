@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txt_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="R$ 123.000.000,00"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:textStyle="bold"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_balance"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Raphael Vinhas"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-light"
+        android:textSize="12sp"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txt_card_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_name"
+        android:layout_marginStart="16dp"
+        android:text="**** **** **** 2344"
+        android:layout_toStartOf="@id/img_chip"
+        android:layout_marginEnd="16dp"
+        android:textSize="18sp"
+        android:textColor="@color/white"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txt_validity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_card_number"
+        android:layout_marginStart="16dp"
+        android:text="08/12"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-light"
+        android:textSize="11sp"/>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/img_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/chipzinho"
+        android:layout_below="@id/txt_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"/>
+
+</RelativeLayout>

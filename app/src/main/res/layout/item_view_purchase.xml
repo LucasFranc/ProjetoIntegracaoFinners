@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/img_purchase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/chipzinho"
+        android:rotation="90"
+        android:tint="@color/red"
+        android:layout_margin="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/txt_purchase_value"
+        android:layout_marginRight="8dp"
+        android:layout_toEndOf="@id/img_purchase"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txt_market"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/img_purchase"
+            android:layout_toRightOf="@id/img_purchase"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:text="Loja especializada" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txt_buy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:layout_below="@id/txt_market"
+            android:text="Compra realizada" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txt_purchase_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R$ 120,00"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/red"
+        android:layout_marginEnd="16dp"/>
+
+
+</RelativeLayout>
