@@ -21,7 +21,9 @@ class FragmentCardPresenter : UserListener {
     }
 
     fun doRequestBalance() {
-        iteractor.getBalance(this)
+        iteractor.getBalance({balance ->
+            callback.refreshBalance(balance)
+        })
     }
 
     fun doRequestUser() {
@@ -37,10 +39,6 @@ class FragmentCardPresenter : UserListener {
     override fun onUserFail(error : String) {
         callback.showRefresh(false)
         callback.showSnackBarError(Constants.REQUEST_TYPE_USER,activity.getString(R.string.code_error) + error)
-    }
-
-    override fun onBalanceSucess(balance: Balance) {
-        callback.refreshBalance(balance)
     }
 
     override fun onBalanceFail(error : String) {

@@ -1,35 +1,35 @@
 package com.example.lucasfranco.finnproject.user
 
+import android.util.Log
 import com.example.lucasfranco.finnproject.Constants
+import kotlinx.coroutines.experimental.CoroutineExceptionHandler
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Retrofit
-
+import ru.gildor.coroutines.retrofit.await
 
 
 class UserIteractor {
 
-    fun getBalance(listener : UserListener){
+    private val errorHandler = CoroutineExceptionHandler{_,throwable ->
+        Log.i("teste","teste")
+    }
 
-        val retrofit = Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+    fun getBalance(callback: (Balance)->Unit){
+        launch(UI + errorHandler) {
+            val retrofit = Retrofit.Builder()
+                    .baseUrl(Constants.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
 
-        retrofit.create(UserAPI::class.java).getBalance().enqueue(object : Callback<Balance> {
+            val result = retrofit.create(UserAPI::class.java).getBalance().await()
 
-            override fun onResponse(call: Call<Balance>?, response: Response<Balance>?) {
-                if(response!!.isSuccessful) listener.onBalanceSucess(response.body()!!)
-                else listener.onBalanceFail(response.code().toString())
-            }
-
-            override fun onFailure(call: Call<Balance>?, t: Throwable?) {
-                listener.onBalanceFail(600.toString())
-            }
-        })
-
+            callback(result)
+        }
     }
 
     fun getUser(listener : UserListener){
