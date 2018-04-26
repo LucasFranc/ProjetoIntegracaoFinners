@@ -2,6 +2,7 @@ package com.example.lucasfranco.finnproject.user
 
 import android.util.Log
 import com.example.lucasfranco.finnproject.Constants
+import com.example.lucasfranco.finnproject.RetrofitClient
 import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
@@ -19,37 +20,16 @@ class UserIteractor {
         Log.i("teste","teste")
     }
 
-    fun getBalance(callback: (Balance)->Unit){
+    fun getBalance(callback: (Balance?)->Unit){
         launch(UI + errorHandler) {
-            val retrofit = Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-
-            val result = retrofit.create(UserAPI::class.java).getBalance().await()
-
-            callback(result)
+            callback(RetrofitClient.get().create(UserAPI::class.java).getBalance().await())
         }
     }
 
-    fun getUser(listener : UserListener){
-        val retrofit = Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-        retrofit.create(UserAPI::class.java).getUser().enqueue(object : Callback<User> {
-
-            override fun onResponse(call: Call<User>?, response: Response<User>?) {
-                if(response!!.isSuccessful) listener.onUserSuccess(response.body()!!)
-                else listener.onUserFail(response.code().toString())
-            }
-
-            override fun onFailure(call: Call<User>?, t: Throwable?) {
-                listener.onUserFail(600.toString())
-            }
-        })
-
+    fun getUser(callback: (User?)->Unit){
+        launch(UI + errorHandler) {
+            callback(RetrofitClient.get().create(UserAPI::class.java).getUser().await())
+        }
     }
 
 }

@@ -22,18 +22,16 @@ class FragmentCardPresenter : UserListener {
 
     fun doRequestBalance() {
         iteractor.getBalance({balance ->
-            callback.refreshBalance(balance)
+            callback.refreshBalance(balance!!)
         })
     }
 
     fun doRequestUser() {
         callback.showRefresh(true)
-        iteractor.getUser(this)
-    }
-
-    override fun onUserSuccess(user: User) {
-        callback.showRefresh(false)
-        callback.refreshUser(user)
+        iteractor.getUser({user->
+            callback.showRefresh(false)
+            callback.refreshUser(user!!)
+        })
     }
 
     override fun onUserFail(error : String) {

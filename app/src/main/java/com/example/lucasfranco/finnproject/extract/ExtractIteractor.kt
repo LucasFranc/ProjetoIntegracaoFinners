@@ -1,6 +1,7 @@
 package com.example.lucasfranco.finnproject.extract
 
 import com.example.lucasfranco.finnproject.Constants
+import com.example.lucasfranco.finnproject.RetrofitClient
 import com.example.lucasfranco.finnproject.purchase.PurchasesListener
 import com.example.lucasfranco.finnproject.purchase.Purchases
 import retrofit2.Call
@@ -13,12 +14,7 @@ class ExtractIteractor {
 
     fun getExtracts(year: Int, month: Int, page: Int, listener: PurchasesListener) {
 
-        val retrofit = Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-        retrofit.create(ExtractAPI::class.java).getPurchases(year, month, page).enqueue(object : Callback<Purchases> {
+        RetrofitClient.get().create(ExtractAPI::class.java).getPurchases(year, month, page).enqueue(object : Callback<Purchases> {
 
             override fun onResponse(call: Call<Purchases>?, response: Response<Purchases>?) {
                 if (response!!.isSuccessful)
