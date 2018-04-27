@@ -58,16 +58,16 @@ class FragmentCard : Fragment(), FragmentCardCallback {
         when (requestType) {
             Constants.REQUEST_TYPE_BALANCE ->
                 Snackbar.make(activity!!.currentFocus, error, Snackbar.LENGTH_LONG)
-                        .setAction(getString(R.string.try_again), { presenter.doRequestBalance() })
+                        .setAction(getString(R.string.try_again), { presenter.doRequestBalance() }).show()
             Constants.REQUEST_TYPE_USER ->
                 Snackbar.make(activity!!.currentFocus, error, Snackbar.LENGTH_LONG)
-                        .setAction(getString(R.string.try_again), { presenter.doRequestUser() })
+                        .setAction(getString(R.string.try_again), { presenter.doRequestUser() }).show()
         }
     }
 
     override fun showRefresh(show: Boolean) {
-        if (show) loadingDialog.show()
-        else loadingDialog.hide()
+        if (show && !loadingDialog.isShowing) loadingDialog.show()
+        else loadingDialog.dismiss()
     }
 
 }

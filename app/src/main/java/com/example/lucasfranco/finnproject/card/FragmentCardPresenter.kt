@@ -8,12 +8,12 @@ import com.example.lucasfranco.finnproject.user.UserListener
 import com.example.lucasfranco.finnproject.user.Balance
 import com.example.lucasfranco.finnproject.user.User
 
-class FragmentCardPresenter : UserListener {
-    
+class FragmentCardPresenter{
+
 
     private lateinit var activity: AppCompatActivity
     private val iteractor = UserIteractor()
-    private lateinit var callback : FragmentCardCallback
+    private lateinit var callback: FragmentCardCallback
 
     fun attachView(activity: AppCompatActivity, callback: FragmentCardCallback) {
         this.activity = activity
@@ -21,30 +21,24 @@ class FragmentCardPresenter : UserListener {
     }
 
     fun doRequestBalance() {
-        iteractor.getBalance({balance ->
-            callback.refreshBalance(balance!!)
+        iteractor.getBalance(
+                { balance ->
+                    callback.refreshBalance(balance!!)
+                }, { error ->
+            callback.showRefresh(false)
+            callback.showSnackBarError(Constants.REQUEST_TYPE_BALANCE, error.message!!)
         })
     }
 
     fun doRequestUser() {
         callback.showRefresh(true)
-        iteractor.getUser({user->
+        iteractor.getUser({ user ->
             callback.showRefresh(false)
             callback.refreshUser(user!!)
+        }, { error ->
+            callback.showRefresh(false)
+            callback.showSnackBarError(Constants.REQUEST_TYPE_USER, error.message!!)
         })
     }
-
-    override fun onUserFail(error : String) {
-        callback.showRefresh(false)
-        callback.showSnackBarError(Constants.REQUEST_TYPE_USER,activity.getString(R.string.code_error) + error)
-    }
-
-    override fun onBalanceFail(error : String) {
-        callback.showRefresh(false)
-        callback.showSnackBarError(Constants.REQUEST_TYPE_BALANCE,activity.getString(R.string.code_error) + error)
-    }
-
-  
-
 
 }
