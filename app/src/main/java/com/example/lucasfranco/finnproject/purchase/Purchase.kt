@@ -1,6 +1,5 @@
 package com.example.lucasfranco.finnproject.purchase
 
-import java.util.*
 
 class Purchase(
         val date : String,

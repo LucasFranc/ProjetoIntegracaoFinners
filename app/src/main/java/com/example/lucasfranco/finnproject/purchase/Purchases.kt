@@ -1,6 +1,5 @@
 package com.example.lucasfranco.finnproject.purchase
 
-import com.example.lucasfranco.finnproject.purchase.Purchase
 import com.google.gson.annotations.SerializedName
 
 class Purchases(
